@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import Login from './components/Login'
 
 function App() {
+  const [state, setState] = useState(null);
+
+  function getPosts() {
+    console.log('button clicked');
+    axios
+      .get('http://localhost:9000/wp-json/wp/v2/vines') 
+      .then(response =>{
+        setState(response.data)
+      })
+  }
+
+  console.log('STATE', state);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={getPosts}>posts</button>
+      <Login />
     </div>
   );
 }
