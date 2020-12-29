@@ -1,27 +1,25 @@
-import './App.css';
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import './App.scss';
+import React from 'react';
 import Login from './components/Login'
+import Home from './components/Home'
+import Add from './components/Add'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 function App() {
-  const [state, setState] = useState(null);
-
-  function getPosts() {
-    console.log('button clicked');
-    axios
-      .get('http://localhost:9000/wp-json/wp/v2/vines') 
-      .then(response =>{
-        setState(response.data)
-      })
-  }
-
-  console.log('STATE', state);
-
 
   return (
     <div className="App">
-      <button onClick={getPosts}>posts</button>
-      <Login />
+      <Router>
+        <Route path="/login" component={Login} />
+        <Route exact path="/" component={Home} />
+        <Route path="/add" component={Add} />
+      </Router>
     </div>
   );
 }
