@@ -25,9 +25,6 @@ body {
     margin: 0 0 18px 0;
 }
 
-.title {
-    
-}
 
 .input {
     height: 36px;
@@ -40,11 +37,13 @@ body {
 .buttonContainer {
     display: flex;
     justify-content: flex-end;
+    align-items: flex-end;
 }
 
 .button {
     height: 32px;
     width: 65px;
+    text-align: center;
 }
 
 .registerContainer {
@@ -87,7 +86,10 @@ main {
 
 .infoGroup {
     .title {
-        margin: 0 0 20px 5px;
+        margin: 12px 0 3px 5px;
+        width: 186px;
+    }
+    .input {
     }
 }
 
@@ -109,13 +111,40 @@ main {
     border: 3px solid white;
     .extrasContainer {
         margin: 0 15px 0 0;
-        .title {
-            margin: 0 0 0 5px;
-        }
     }
 }
 
-
+.extrasGroupAdd {
+    display: flex;
+    flex-direction: column;
+    .extrasContainer {
+        margin: 0 15px 0 0;
+        .title {
+            margin: 12px 0 3px 5px;
+        }
+    }
+    .content {
+        width: 186px;
+        height: 100px;
+        border: 1px solid black;
+        border-radius: 6px;
+    }
+    .__extrasContainer {
+        display: flex;
+        justify-content: space-between;
+        .commentsContainer {
+            .title {
+                margin: 12px 0 3px 5px;
+            }    
+            textarea {
+                width: 186px;
+                border-radius: 6px;
+                border: 1px solid black;
+                margin: 0 0 19px 0;
+            }
+        }
+    }
+}
 
 footer {
     background-color: #fe42ad;
