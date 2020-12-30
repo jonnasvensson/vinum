@@ -2,7 +2,7 @@ import '../App.scss';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Header from './Header'
-import Footer from './Footer'
+import Circle from './Circle'
 
 
 function Login() {
@@ -126,7 +126,7 @@ function Login() {
                 </div>
             </div>
         </div>    
-        <Footer />
+        <Circle />
     </main>
   );
 }

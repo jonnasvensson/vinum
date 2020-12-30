@@ -60,7 +60,6 @@ body {
 
 main {
     height: 100vh;
-    overflow: scroll;
 }
 
 .header {
@@ -68,7 +67,8 @@ main {
 }
 
 .mainContainer {
-    margin-bottom: 46px;
+    // margin-bottom: 46px;
+    position: relative;
 }
 
 .containerWine {
@@ -135,7 +135,7 @@ main {
         .commentsContainer {
             .title {
                 margin: 12px 0 3px 5px;
-            }    
+            }
             textarea {
                 width: 186px;
                 border-radius: 6px;
@@ -146,25 +146,34 @@ main {
     }
 }
 
-footer {
+.circle {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
     background-color: #fe42ad;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 46px;
-    position: absolute;
-    width: 100%;
-    bottom: 0px;
-    .title {
-        margin: 0 11px 0 0;
+    cursor: pointer;
+    text-align: center;
+    line-height: 24px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+        z-index: 9999;
+    .plusVerticle {
+        width: 3.5px;
+        height: 25px;
+        background-color: #ffffff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
-    .circle {
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        border:  solid black;
-        cursor: pointer;
-        text-align: center;
-        line-height: 24px;
+    .plusHorizontal {
+        width: 25px;
+        height: 3.5px;
+        background-color: #ffffff;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
     }
 }
