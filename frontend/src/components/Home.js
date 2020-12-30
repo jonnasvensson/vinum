@@ -5,21 +5,57 @@ import Header from './Header'
 import Circle from './Circle'
 
 
-function Login() {
-  const [state, setState] = useState(null);
+export default function Home() {
+  const [items, setItems] = useState([]);
 
-  function getPosts() {
-    console.log('button clicked');
+  useEffect(() => {
+    getAllVines();
+  }, [])
+
+  const getAllVines = () => {
     axios
-      .get('http://localhost:9000/wp-json/wp/v2/vines') 
-      .then(response =>{
-        setState(response.data)
-      })
+    .get('http://localhost:9000/wp-json/wp/v2/vines') 
+    .then(response =>{
+        setItems(response.data)
+    })
   }
 
-  console.log('STATE', state);
+  console.log(items);
 
-
+  const mapped = items.map(item => {
+      if (!item) {
+          return {}
+      }
+        return (        
+                <div className="containerWine" key={item.id}>
+                    <div className="topContainer">
+                        <div className="infoGroup">
+                            <div className="title">Name</div>
+                            <div className="content">{item.acf.vine}</div>
+                            <div className="title">Grape</div>
+                            <div className="content">{item.acf.grape}</div>
+                            <div className="title">Country</div>
+                            <div className="content">{item.acf.country}</div>
+                        </div>
+                        <div className="imgContainer">
+                            <img src={item.acf.image} alt=""></img>
+                        </div>
+                    </div>
+                    <div className="bottomContainer">
+                        <div className="extrasGroup">
+                            <div className="extrasContainer">
+                                <div className="title">Description</div>
+                                <div className="content">{item.acf.description}</div>
+                            </div>    
+                            <div className="extrasContainer">
+                                <div className="title">Comments</div>
+                                <div className="content"></div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            )  
+  })
 
   return (
     <main className="main">
@@ -28,107 +64,10 @@ function Login() {
         </div>
         <Header />
         <div className="mainContainer">
-            <div className="containerWine">
-                <div className="topContainer">
-                    <div className="infoGroup">
-                        <div className="title">Name</div>
-                        <div className="title">Grape</div>
-                        <div className="title">Country</div>
-                    </div>
-                    <div className="imgContainer">
-                        <img src="" alt=""></img>
-                    </div>
-                </div>
-                <div className="bottomContainer">
-                    <div className="extrasGroup">
-                        <div className="extrasContainer">
-                            <div className="title">Description</div>
-                            <div className="content">Cheeseburger fondue who moved my cheese. Hard cheese hard cheese cauliflower cheese emmental st. agur blue cheese pecorino cream cheese ricotta. Mascarpone queso rubber cheese cottage cheese cheesecake port-salut airedale airedale. Port-salut cream cheese airedale manchego brie stilton cheeseburger the big cheese. The big cheese.</div>
-                        </div>    
-                        <div className="extrasContainer">
-                            <div className="title">Comments</div>
-                            <div className="content">Cheeseburger fondue who moved my cheese. Hard cheese hard cheese cauliflower cheese emmental st. agur blue cheese pecorino cream cheese ricotta. Mascarpone queso rubber cheese cottage cheese cheesecake port-salut airedale airedale. Port-salut cream cheese airedale manchego brie stilton cheeseburger the big cheese. The big cheese.</div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-            <div className="containerWine">
-                <div className="topContainer">
-                    <div className="infoGroup">
-                        <div className="title">Name</div>
-                        <div className="title">Grape</div>
-                        <div className="title">Country</div>
-                    </div>
-                    <div className="imgContainer">
-                        <img src="" alt=""></img>
-                    </div>
-                </div>
-                <div className="bottomContainer">
-                    <div className="extrasGroup">
-                        <div className="extrasContainer">
-                            <div className="title">Description</div>
-                            <div className="content">Cheeseburger fondue who moved my cheese. Hard cheese hard cheese cauliflower cheese emmental st. agur blue cheese pecorino cream cheese ricotta. Mascarpone queso rubber cheese cottage cheese cheesecake port-salut airedale airedale. Port-salut cream cheese airedale manchego brie stilton cheeseburger the big cheese. The big cheese.</div>
-                        </div>    
-                        <div className="extrasContainer">
-                            <div className="title">Comments</div>
-                            <div className="content">Cheeseburger fondue who moved my cheese. Hard cheese hard cheese cauliflower cheese emmental st. agur blue cheese pecorino cream cheese ricotta. Mascarpone queso rubber cheese cottage cheese cheesecake port-salut airedale airedale. Port-salut cream cheese airedale manchego brie stilton cheeseburger the big cheese. The big cheese.</div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-
-            <div className="containerWine">
-                <div className="topContainer">
-                    <div className="infoGroup">
-                        <div className="title">Name</div>
-                        <div className="title">Grape</div>
-                        <div className="title">Country</div>
-                    </div>
-                    <div className="imgContainer">
-                        <img src="" alt=""></img>
-                    </div>
-                </div>
-                <div className="bottomContainer">
-                    <div className="extrasGroup">
-                        <div className="extrasContainer">
-                            <div className="title">Description</div>
-                            <div className="content">Cheeseburger fondue who moved my cheese. Hard cheese hard cheese cauliflower cheese emmental st. agur blue cheese pecorino cream cheese ricotta. Mascarpone queso rubber cheese cottage cheese cheesecake port-salut airedale airedale. Port-salut cream cheese airedale manchego brie stilton cheeseburger the big cheese. The big cheese.</div>
-                        </div>    
-                        <div className="extrasContainer">
-                            <div className="title">Comments</div>
-                            <div className="content">Cheeseburger fondue who moved my cheese. Hard cheese hard cheese cauliflower cheese emmental st. agur blue cheese pecorino cream cheese ricotta. Mascarpone queso rubber cheese cottage cheese cheesecake port-salut airedale airedale. Port-salut cream cheese airedale manchego brie stilton cheeseburger the big cheese. The big cheese.</div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-            <div className="containerWine">
-                <div className="topContainer">
-                    <div className="infoGroup">
-                        <div className="title">Name</div>
-                        <div className="title">Grape</div>
-                        <div className="title">Country</div>
-                    </div>
-                    <div className="imgContainer">
-                        <img src="" alt=""></img>
-                    </div>
-                </div>
-                <div className="bottomContainer">
-                    <div className="extrasGroup">
-                        <div className="extrasContainer">
-                            <div className="title">Description</div>
-                            <div className="content">Cheeseburger fondue who moved my cheese. Hard cheese hard cheese cauliflower cheese emmental st. agur blue cheese pecorino cream cheese ricotta. Mascarpone queso rubber cheese cottage cheese cheesecake port-salut airedale airedale. Port-salut cream cheese airedale manchego brie stilton cheeseburger the big cheese. The big cheese.</div>
-                        </div>    
-                        <div className="extrasContainer">
-                            <div className="title">Comments</div>
-                            <div className="content">Cheeseburger fondue who moved my cheese. Hard cheese hard cheese cauliflower cheese emmental st. agur blue cheese pecorino cream cheese ricotta. Mascarpone queso rubber cheese cottage cheese cheesecake port-salut airedale airedale. Port-salut cream cheese airedale manchego brie stilton cheeseburger the big cheese. The big cheese.</div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
+            {mapped}
         </div>    
         <Circle />
     </main>
   );
 }
 
-export default Login;

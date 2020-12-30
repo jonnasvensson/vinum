@@ -67,7 +67,7 @@ main {
 }
 
 .mainContainer {
-    // margin-bottom: 46px;
+    padding-bottom: 28px;
     position: relative;
 }
 
@@ -85,20 +85,31 @@ main {
 }
 
 .infoGroup {
+    width: 60%;
+
     .title {
         margin: 12px 0 3px 5px;
-        width: 186px;
     }
-    .input {
+    .content {
+        background-color: #fe42ad;
+        color: #ffffff;
+        padding: 7px;
+        border-radius: 6px;
     }
 }
 
 .imgContainer {
-    background-color: black;
-    width: 81px;
-    height: 86px;
-    border-radius: 6px;
+    position: relative;
+    width: 40%;
+    height: 200px;
+    overflow: hidden;
     img {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        position: absolute;
+        z-index: 1;
+        height: 100%;
     }
 }
 
@@ -109,8 +120,22 @@ main {
     display: flex;
     justify-content: space-between;
     border: 3px solid white;
-    .extrasContainer {
+    .extrasContainer:first-child {
         margin: 0 15px 0 0;
+    }
+    .extrasContainer {
+        width: 100%;
+        .title {
+            margin: 12px 0 3px 5px;
+        }
+    }
+    .content {
+        height: 100px;
+        border-radius: 6px;
+        margin: 12px 0 3px 0;
+        background-color: #fe42ad;
+        color: #ffffff;
+        padding: 7px;
     }
 }
 
@@ -128,6 +153,7 @@ main {
         height: 100px;
         border: 1px solid black;
         border-radius: 6px;
+        margin: 12px 0 3px 5px;
     }
     .__extrasContainer {
         display: flex;
