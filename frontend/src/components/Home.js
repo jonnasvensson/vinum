@@ -6,68 +6,76 @@ import Circle from './Circle'
 
 
 export default function Home() {
-  const [items, setItems] = useState([]);
+    const [vines, setVines] = useState([]);
+    const [countries, setCountries] = useState([]);
 
-  useEffect(() => {
-    getAllVines();
-  }, [])
+    useEffect(() => {
+        getAllVines();
+        getAllCountries();
+    }, [])
 
-  const getAllVines = () => {
-    axios
-    .get('http://localhost:9000/wp-json/wp/v2/vines') 
-    .then(response =>{
-        setItems(response.data)
-    })
-  }
+    const getAllVines = () => {
+        axios
+            .get('http://localhost:9000/wp-json/wp/v2/vines')
+            .then(response => {
+                setVines(response.data)
+            })
+    }
 
-  console.log(items);
+    const getAllCountries = () => {
+        axios
+            .get('http://localhost:9000/wp-json/wp/v2/countries')
+            .then(response => {
+                setCountries(response.data)
+            })
+    }
 
-  const mapped = items.map(item => {
-      if (!item) {
-          return {}
-      }
-        return (        
-                <div className="containerWine" key={item.id}>
-                    <div className="topContainer">
-                        <div className="infoGroup">
-                            <div className="title">Name</div>
-                            <div className="content">{item.acf.vine}</div>
-                            <div className="title">Grape</div>
-                            <div className="content">{item.acf.grape}</div>
-                            <div className="title">Country</div>
-                            <div className="content">{item.acf.country}</div>
-                        </div>
-                        <div className="imgContainer">
-                            <img src={item.acf.image} alt=""></img>
-                        </div>
+    const mappedVines = vines.map(vine => {
+        if (!vine) {
+            return {}
+        }
+        return (
+            <div className="containerWine" key={vine.id}>
+                <div className="topContainer">
+                    <div className="infoGroup">
+                        <div className="title">Name</div>
+                        <div className="content">{vine.acf.vine}</div>
+                        <div className="title">Grape</div>
+                        <div className="content">{vine.acf.grape}</div>
+                        <div className="title">Country</div>
+                        {/* <div className="content">{vine.acf.country}</div> */}
                     </div>
-                    <div className="bottomContainer">
-                        <div className="extrasGroup">
-                            <div className="extrasContainer">
-                                <div className="title">Description</div>
-                                <div className="content">{item.acf.description}</div>
-                            </div>    
-                            <div className="extrasContainer">
-                                <div className="title">Comments</div>
-                                <div className="content"></div>
-                            </div>    
+                    <div className="imgContainer">
+                        <img src={vine.acf.image} alt=""></img>
+                    </div>
+                </div>
+                <div className="bottomContainer">
+                    <div className="extrasGroup">
+                        <div className="extrasContainer">
+                            <div className="title">Description</div>
+                            <div className="content">{vine.acf.description}</div>
+                        </div>
+                        <div className="extrasContainer">
+                            <div className="title">Comments</div>
+                            <div className="content"></div>
                         </div>
                     </div>
                 </div>
-            )  
-  })
+            </div>
+        )
+    })
 
-  return (
-    <main className="main">
-        <div className="usernameContainer">
-            <div className="title">Username</div>
-        </div>
-        <Header />
-        <div className="mainContainer">
-            {mapped}
-        </div>    
-        <Circle />
-    </main>
-  );
+    return (
+        <main className="main">
+            <div className="usernameContainer">
+                <div className="title">Username</div>
+            </div>
+            <Header />
+            <div className="mainContainer">
+                {mappedVines}
+            </div>
+            <Circle />
+        </main>
+    );
 }
 
