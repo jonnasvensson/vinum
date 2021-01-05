@@ -95,6 +95,7 @@ main {
         color: #ffffff;
         padding: 7px;
         border-radius: 6px;
+        min-height: 18px;
     }
 }
 
@@ -147,6 +148,11 @@ main {
         .title {
             margin: 12px 0 3px 5px;
         }
+        textarea {
+            width: 186px;
+            border-radius: 6px;
+            border: 1px solid black;
+        }
     }
     .content {
         width: 186px;
@@ -177,6 +183,7 @@ main {
     height: 54px;
     border-radius: 50%;
     background-color: #fe42ad;
+    border: 2px solid #ffffff;
     cursor: pointer;
     text-align: center;
     line-height: 24px;

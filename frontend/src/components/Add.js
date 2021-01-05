@@ -4,21 +4,56 @@ import React, { useState, useEffect } from 'react';
 import Header from './Header'
 
 
-export default function Add() {
-    const [state, setState] = useState(null);
+export default function Add( token ) {
+    const [input, setInputs] = useState({
+        name: "", 
+        grape: "",
+        country: "",
+        description: "",
+        comments: ""
+    });
+    const [countries, setCountries] = useState([]);
 
-    function getPosts() {
-        console.log('button clicked');
+    const getAllCountries = () => {
         axios
-            .get('http://localhost:9000/wp-json/wp/v2/vines')
+            .get('http://localhost:9000/wp-json/wp/v2/countries')
             .then(response => {
-                setState(response.data)
+                setCountries(response.data)
             })
     }
 
-    console.log('STATE', state);
+    useEffect(() => {
+        getAllCountries();
+    }, [])
 
 
+    function handleChange(e) {
+        const value = e.target.value;
+        setInputs({ 
+            ...input,
+            [e.target.name]: value
+        });
+    }
+
+    function handleAdd() {
+        let item = {
+            title: input.name,
+            content: "",
+            status: "publish",
+            fields: {
+                vine: input.name,
+                grape: input.grape,
+                description: input.description,
+            }
+        }
+        let auth = token.token
+        axios
+            .post('http://localhost:9000/wp-json/wp/v2/vines', item, {
+                headers: {
+                    Authorization: `Bearer ${token.token}`
+                }
+            })
+    }
 
     return (
         <main className="main">
@@ -31,13 +66,25 @@ export default function Add() {
                     <div className="topContainer">
                         <div className="infoGroup">
                             <div className="title">Name</div>
-                            <input className="input" />
+                            <input 
+                                className="input" 
+                                name="name"
+                                onChange={handleChange}
+                                value={input.name} />
                             <div className="title">Grape</div>
-                            <input className="input" />
-
+                            <input 
+                                className="input"
+                                name="grape"
+                                value={input.grape}
+                                onChange={handleChange}
+                                 />
                             <div className="title">Country</div>
-                            <input className="input" />
-
+                            <input 
+                                className="input"
+                                name="country"
+                                value={input.country}
+                                onChange={handleChange}
+                             />
                         </div>
                         <div className="imgContainer">
                             <img src="" alt=""></img>
@@ -47,15 +94,27 @@ export default function Add() {
                         <div className="extrasGroupAdd">
                             <div className="extrasContainer">
                                 <div className="title">Description</div>
-                                <div className="content"></div>
+                                <textarea 
+                                    id="story" 
+                                    rows="3"
+                                    name="description"
+                                    value={input.description}
+                                    onChange={handleChange}    
+                                    ></textarea>
                             </div>
                             <div className="__extrasContainer">
                                 <div className="commentsContainer">
                                     <div className="title">Comments</div>
-                                    <textarea id="story" name="story" rows="3"></textarea>
+                                    <textarea 
+                                        id="story" 
+                                        rows="3"
+                                        name="comments"
+                                        value={input.comments}
+                                        onChange={handleChange}
+                                    ></textarea>
                                 </div>
                                 <div className="buttonContainer">
-                                    <input className="button" value="Add"/>
+                                    <button className="button" onClick={handleAdd}>Add</button>
                                 </div>
                             </div>
                         </div>

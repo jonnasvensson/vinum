@@ -3,15 +3,15 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Header from './Header'
 import Circle from './Circle'
+import { useHistory } from "react-router-dom";
 
 
-export default function Home() {
+export default function Home(token, setToken ) {
     const [vines, setVines] = useState([]);
-    const [countries, setCountries] = useState([]);
+    let history = useHistory();
 
     useEffect(() => {
         getAllVines();
-        getAllCountries();
     }, [])
 
     const getAllVines = () => {
@@ -21,13 +21,10 @@ export default function Home() {
                 setVines(response.data)
             })
     }
-
-    const getAllCountries = () => {
-        axios
-            .get('http://localhost:9000/wp-json/wp/v2/countries')
-            .then(response => {
-                setCountries(response.data)
-            })
+    
+    function handleSignOut() {
+        token = false;
+        history.push('/')
     }
 
     const mappedVines = vines.map(vine => {
@@ -35,6 +32,7 @@ export default function Home() {
             return {}
         }
         return (
+
             <div className="containerWine" key={vine.id}>
                 <div className="topContainer">
                     <div className="infoGroup">
@@ -43,7 +41,12 @@ export default function Home() {
                         <div className="title">Grape</div>
                         <div className="content">{vine.acf.grape}</div>
                         <div className="title">Country</div>
-                        {/* <div className="content">{vine.acf.country}</div> */}
+                        {
+                            !vine.acf.country ? vine.acf.country === [] && <div className="content"></div> : 
+                                vine.acf.country.map(x => {
+                                    return <div className="content" key={x.ID}>{x.post_title}</div>
+                            })
+                        }
                     </div>
                     <div className="imgContainer">
                         <img src={vine.acf.image} alt=""></img>
@@ -69,6 +72,7 @@ export default function Home() {
         <main className="main">
             <div className="usernameContainer">
                 <div className="title">Username</div>
+                <button onClick={handleSignOut}>Sign out</button>
             </div>
             <Header />
             <div className="mainContainer">
