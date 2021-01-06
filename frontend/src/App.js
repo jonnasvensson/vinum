@@ -2,6 +2,7 @@ import './App.scss';
 import Login from './components/Login'
 import Home from './components/Home'
 import Add from './components/Add'
+import Edit from './components/Edit'
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -42,7 +43,6 @@ function App() {
       })
       .then(resp => {
         setToken(resp.data.token);
-        console.log(token);
       })
   }
 
@@ -100,11 +100,18 @@ function App() {
         /> */}
         <Route exact path="/home" component={() => (
           <Home
+            token={token}
           />
         )}
         />
         <Route path="/add" component={() => (
           <Add
+            token={token}
+          />
+        )}
+        />
+        <Route path="/edit/:id" component={() => (
+          <Edit
             token={token}
           />
         )}

@@ -2,17 +2,39 @@ import '../App.scss';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Header from './Header'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams
+  } from "react-router-dom";  
 
 
-export default function Add( token ) {
+export default function Edit( token ) {
     const [input, setInputs] = useState({
-        name: "", 
+        name: "Jonna", 
         grape: "",
         description: "",
         comments: ""
     });
     const [selected, setSelected] = useState();
     const [countries, setCountries] = useState([]);
+    const [vines, setVines] = useState([]);
+    let id = useParams();
+
+    useEffect(() => {
+        getAllCountries();
+        getAllVines();
+        filterVine();
+    }, [])
+
+    function filterVine() {
+        vines.filter(vine => {
+            console.log(vine.acf.vine );
+            return vine.acf.vine === id
+        })
+    }
 
     const getAllCountries = () => {
         axios
@@ -22,14 +44,16 @@ export default function Add( token ) {
             })
     }
 
-    useEffect(() => {
-        getAllCountries();
-    }, [])
+    const getAllVines = () => {
+        axios
+            .get('http://localhost:9000/wp-json/wp/v2/vines')
+            .then(response => {
+                setVines(response.data)
+            })
+    }
 
-    console.log(token);
     function handleAdd() {
         postVine();
-        // postCountry();
     }
 
     function handleChange(e) {
@@ -65,24 +89,6 @@ export default function Add( token ) {
                 }
             })
     }
-
-    // function postCountry() {
-    //     let item = {
-    //         title: selected,
-    //         content: "",
-    //         status: "publish",
-    //         fields: {
-    //             country: selected
-    //         }
-    //     }
-    //     console.log(item);
-    //     axios
-    //         .post('http://localhost:9000/wp-json/wp/v2/countries', item, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token.token}`
-    //             }
-    //         })
-    // }
 
     return (
         <main className="main">
@@ -135,7 +141,7 @@ export default function Add( token ) {
                                     ></textarea>
                             </div>
                             <div className="__extrasContainer">
-                                <div className="commentsContainer">
+                                {/* <div className="commentsContainer">
                                     <div className="title">Comments</div>
                                     <textarea 
                                         id="story" 
@@ -144,9 +150,9 @@ export default function Add( token ) {
                                         value={input.comments}
                                         onChange={handleChange}
                                     ></textarea>
-                                </div>
+                                </div> */}
                                 <div className="buttonContainer">
-                                    <button className="button" onClick={handleAdd}>Add</button>
+                                    <button className="button" onClick={handleAdd}>Update</button>
                                 </div>
                             </div>
                         </div>
