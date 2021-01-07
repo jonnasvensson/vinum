@@ -28,7 +28,6 @@ function App() {
 
   function handleLogin(e) {
     e.preventDefault();
-    console.log(token);
     if (token) {
       <Redirect to='/' />
     }

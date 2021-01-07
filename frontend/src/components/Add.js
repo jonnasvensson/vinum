@@ -2,13 +2,17 @@ import '../App.scss';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import Header from './Header'
+import AriaModal from 'react-aria-modal';
+import CloseIcon from '@material-ui/icons/Close';
+import AddIcon from '@material-ui/icons/Add';
 
 
-export default function Add( token ) {
+export default function Add({ token, deactivateModal }) {
     const [input, setInputs] = useState({
-        name: "", 
+        name: "",
         grape: "",
         description: "",
+        image: "",
         comments: ""
     });
     const [selected, setSelected] = useState();
@@ -26,7 +30,6 @@ export default function Add( token ) {
         getAllCountries();
     }, [])
 
-    console.log(token);
     function handleAdd() {
         postVine();
         // postCountry();
@@ -34,7 +37,7 @@ export default function Add( token ) {
 
     function handleChange(e) {
         const value = e.target.value;
-        setInputs({ 
+        setInputs({
             ...input,
             [e.target.name]: value
         });
@@ -54,10 +57,11 @@ export default function Add( token ) {
                 vine: input.name,
                 grape: input.grape,
                 description: input.description,
-                country: [{ID: selected}]
+                image: input.image,
+                country: [{ ID: selected }]
             }
         }
-        console.log(item);
+        console.log('ITEMM', item);
         axios
             .post('http://localhost:9000/wp-json/wp/v2/vines', item, {
                 headers: {
@@ -85,40 +89,46 @@ export default function Add( token ) {
     // }
 
     return (
-        <main className="main">
-            <div className="usernameContainer">
-                <div className="title">Username</div>
-            </div>
-            <Header />
-            <div className="mainContainer">
+        <AriaModal
+            titleText="demo one"
+            onExit={deactivateModal}
+            className="modal"
+        >
+            <main className="popup">
                 <div className="containerWine">
+                    <div className="buttonContainer">
+                        <button className="buttonClose" onClick={deactivateModal}>
+                            <CloseIcon />
+                        </button>
+                    </div>
                     <div className="topContainer">
                         <div className="infoGroup">
                             <div className="title">Name</div>
-                            <input 
-                                className="input" 
+                            <input
+                                className="input"
                                 name="name"
                                 onChange={handleChange}
                                 value={input.name} />
                             <div className="title">Grape</div>
-                            <input 
+                            <input
                                 className="input"
                                 name="grape"
                                 value={input.grape}
                                 onChange={handleChange}
-                                 />
-                            <div className="title">Country</div>
+                            />
 
                             <select onChange={handleSelect}>
+                                <option className="title">Country</option>
                                 {
-                                  countries.map(country => {
-                                      return <option value={country.id} key={country.id}>{country.acf.country}</option>
-                                  })  
+                                    countries.map(country => {
+                                        return <option value={country.id} key={country.id}>{country.acf.country}</option>
+                                    })
                                 }
                             </select>
-                                                        
+
                         </div>
                         <div className="imgContainer">
+                            <input type="file" accept=".jpg, .jpeg, .png" src={input.image} />
                             <img src="" alt=""></img>
                         </div>
                     </div>
@@ -126,33 +136,25 @@ export default function Add( token ) {
                         <div className="extrasGroupAdd">
                             <div className="extrasContainer">
                                 <div className="title">Description</div>
-                                <textarea 
-                                    id="story" 
+                                <textarea
+                                    id="story"
                                     rows="3"
                                     name="description"
                                     value={input.description}
-                                    onChange={handleChange}    
-                                    ></textarea>
+                                    onChange={handleChange}
+                                ></textarea>
                             </div>
                             <div className="__extrasContainer">
-                                <div className="commentsContainer">
-                                    <div className="title">Comments</div>
-                                    <textarea 
-                                        id="story" 
-                                        rows="3"
-                                        name="comments"
-                                        value={input.comments}
-                                        onChange={handleChange}
-                                    ></textarea>
-                                </div>
                                 <div className="buttonContainer">
-                                    <button className="button" onClick={handleAdd}>Add</button>
+                                    <button className="buttonUpdate" onClick={handleAdd}>
+                                        <AddIcon />
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
+            </main>
+        </AriaModal>
     );
 }

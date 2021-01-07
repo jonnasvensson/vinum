@@ -3,16 +3,15 @@ body {
 }
 
 .App {
-  display: flex;
-  flex-direction: column;
-  /* justify-content: center; */
-//   position: relative;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    //   position: relative;
 }
-
 
 .popup {
     z-index: 1;
-    background-color: rgba(0, 0, 0, 0.25);    
+    background-color: rgba(0, 0, 0, 0.25);
     width: 100vw;
     display: flex;
     justify-content: center;
@@ -23,15 +22,16 @@ body {
         width: 90vw;
         height: 365px;
         border-radius: 6px;
+
     }
     .topContainer {
         display: flex;
         justify-content: space-between;
     }
-    
+
     .infoGroup {
         width: 60%;
-    
+
         .title {
             margin: 12px 0 3px 5px;
         }
@@ -43,7 +43,7 @@ body {
             min-height: 18px;
         }
     }
-    
+
     .imgContainer {
         position: relative;
         width: 40%;
@@ -52,15 +52,15 @@ body {
         img {
             top: 50%;
             left: 50%;
-            transform: translate(-50%,-50%);
+            transform: translate(-50%, -50%);
             position: absolute;
             height: 100%;
         }
     }
-    
+
     .extrasGroup {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
         border: 3px solid white;
         .extrasContainer:first-child {
             margin: 0 15px 0 0;
@@ -80,8 +80,7 @@ body {
             padding: 7px;
         }
     }
-    
-    }
+}
 
 .login {
     margin: 20rem 47px 0 47px;
@@ -127,6 +126,39 @@ body {
     .MuiSvgIcon-root {
         fill: #ffffff;
     }
+    .buttonUpdate {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        background-color: #fe42ad;
+        border: 2px solid #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        .MuiSvgIcon-root {
+            width: 34px;
+            height: 34px;
+        }
+    }
+    .buttonClose {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: #fe42ad;
+        border: 2px solid #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        .MuiSvgIcon-root {
+            width: 24px;
+            height: 24px;
+        }
+    }
+
 }
 
 .button {
@@ -155,17 +187,6 @@ main {
     margin: 11px 0 10px 70px;
 }
 
-.mainContainer {
-    padding-bottom: 28px;
-    position: relative;
-    .containerWine {
-        border: 2px solid #ff0414;
-        padding: 8px 12px;
-        margin: 20px 15px;
-        border-radius: 6px;
-    }
-
-
 .topContainer {
     display: flex;
     justify-content: space-between;
@@ -184,73 +205,70 @@ main {
         border-radius: 6px;
         min-height: 18px;
     }
-}
-
-.imgContainer {
-    position: relative;
-    width: 40%;
-    height: 200px;
-    overflow: hidden;
-    img {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        position: absolute;
-        height: 100%;
-    }
-}
-
-.bottomContainer {
-}
-
-.extrasGroup {
-    display: flex;
-    justify-content: space-between;
-    border: 3px solid white;
-    .extrasContainer:first-child {
-        margin: 0 15px 0 0;
-    }
-    .extrasContainer {
+    select {
+        margin: 12px 0 0 0;
         width: 100%;
-        .title {
-            margin: 12px 0 3px 5px;
-        }
+        height: 36px;
+        cursor: pointer;
     }
-    .content {
-        height: 100px;
-        border-radius: 6px;
-        margin: 12px 0 3px 0;
-        background-color: #fe42ad;
-        color: #ffffff;
-        padding: 7px;
-    }
+
 }
 
-.extrasGroupAdd {
-    display: flex;
-    flex-direction: column;
-    .extrasContainer {
-        margin: 0 15px 0 0;
-        .title {
-            margin: 12px 0 3px 5px;
-        }
-        textarea {
-            width: 186px;
-            border-radius: 6px;
-            border: 1px solid black;
-        }
-    }
-    .content {
-        width: 186px;
-        height: 100px;
-        border: 1px solid black;
+.mainContainer {
+    padding-bottom: 28px;
+    position: relative;
+    .containerWine {
+        border: 2px solid #ff0414;
+        padding: 8px 12px;
+        margin: 20px 15px;
         border-radius: 6px;
-        margin: 12px 0 3px 5px;
     }
-    .__extrasContainer {
+
+    .imgContainer {
+        position: relative;
+        width: 40%;
+        height: 200px;
+        overflow: hidden;
+        img {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: absolute;
+            height: 100%;
+        }
+    }
+
+    .bottomContainer {
+    }
+
+    .extrasGroup {
         display: flex;
-        justify-content: flex-end;
-        .commentsContainer {
+        justify-content: space-between;
+        border: 3px solid white;
+        .extrasContainer:first-child {
+            margin: 0 15px 0 0;
+        }
+        .extrasContainer {
+            width: 100%;
+            .title {
+                margin: 12px 0 3px 5px;
+            }
+        }
+        .content {
+            height: 100px;
+            border-radius: 6px;
+            margin: 12px 0 3px 0;
+            background-color: #fe42ad;
+            color: #ffffff;
+            padding: 7px;
+        }
+    }
+
+    .extrasGroupAdd {
+        display: flex;
+        flex-direction: column;
+        .extrasContainer {
+            margin: 0 15px 0 0;
             .title {
                 margin: 12px 0 3px 5px;
             }
@@ -258,12 +276,31 @@ main {
                 width: 186px;
                 border-radius: 6px;
                 border: 1px solid black;
-                margin: 0 0 19px 0;
+            }
+        }
+        .content {
+            width: 186px;
+            height: 100px;
+            border: 1px solid black;
+            border-radius: 6px;
+            margin: 12px 0 3px 5px;
+        }
+        .__extrasContainer {
+            display: flex;
+            justify-content: flex-end;
+            .commentsContainer {
+                .title {
+                    margin: 12px 0 3px 5px;
+                }
+                textarea {
+                    width: 186px;
+                    border-radius: 6px;
+                    border: 1px solid black;
+                    margin: 0 0 19px 0;
+                }
             }
         }
     }
-}
-
 }
 
 .circle {

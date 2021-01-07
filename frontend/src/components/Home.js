@@ -6,9 +6,8 @@ import Circle from './Circle'
 import { Link, useHistory } from "react-router-dom";
 import CreateIcon from '@material-ui/icons/Create';
 import PopupEdit from './PopupEdit'
-import AriaModal from 'react-aria-modal';
-import CloseIcon from '@material-ui/icons/Close';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Add from './Add'
 
 
 export default function Home(token) {
@@ -16,6 +15,7 @@ export default function Home(token) {
     const [users, setUsers] = useState([]);
     const [clickedVine, setClickedVine] = useState(null);
     const [modalActive, setModalActive] = useState(false)
+    const [modalActiveAdd, setModalActiveAdd] = useState(false)
     let history = useHistory();
 
     useEffect(() => {
@@ -35,30 +35,34 @@ export default function Home(token) {
                 setVines(response.data)
             })
     }
+
+    const activateModalAdd = () => {
+        setModalActiveAdd(true);
+    }
     
     const activateModal = (vine) => {
         setClickedVine(vine);
-        console.log(vine);
         setModalActive(true);
-        console.log(modalActive);
     }
 
     const deactivateModal = () => {
         setModalActive(false);
+        setModalActiveAdd(false);
     }
 
-    const handleDelete = (vine) => {
-        axios
-        .delete('http://localhost:9000/wp-json/wp/v2/vines/' + vine.id, {
+    const axiosDeleteAsync = async (vine) => {
+        await axios.delete('http://localhost:9000/wp-json/wp/v2/vines/' + vine.id, 
+        {
             headers: {
                 Authorization: `Bearer ${token.token}`
             }
-            .then(() => {
-                getAllVines();
-            })
-        })
+        }) 
+    } 
 
-        console.log(vine);
+    
+    const handleDelete = async (vine) => {
+        await axiosDeleteAsync(vine)
+        getAllVines();
     }
 
     function handleSignOut() {
@@ -106,9 +110,6 @@ export default function Home(token) {
                             <button className="buttonEdit" onClick={() => activateModal(vine)}>
                                 <CreateIcon />
                             </button>
-                            {/* <Link to={"/edit/" + vine.slug} onClick={() => handlePopup(vine)}>
-                                <CreateIcon />
-                            </Link> */}
                         </div>
                     </div>
                 </div>
@@ -120,49 +121,15 @@ export default function Home(token) {
         <main className="main">
             {
                 modalActive && 
-                <AriaModal
-                    titleText="demo one"
-                    onExit={deactivateModal}
-                    className="modal"
-                >
-                    <main className="popup">
-                        <div className="containerWine">
-                            <div className="topContainer">
-                                <div className="infoGroup">
-                                    <div className="title">Name</div>
-                                    <div className="content"></div>
-                                    <div className="title">Grape</div>
-                                    <div className="content"></div>
-                                    <div className="title">Country</div>
-                                    <div className="content">
-                                        {/* {
-                                    !vine.acf.country ? vine.acf.country === [] :
-                                        vine.acf.country.map(x => {
-                                            return <div key={x.ID}>{x.post_title}</div>
-                                        })
-                                } */}
-                                    </div>
-                                </div>
-                                <div className="imgContainer">
-                                    <img src="" alt=""></img>
-                                </div>
-                            </div>
-                            <div className="bottomContainer">
-                                <div className="extrasGroup">
-                                    <div className="extrasContainer">
-                                        <div className="title">Description</div>
-                                        <div className="content"></div>
-                                    </div>
-                                    <div className="buttonContainer">
-                                        <button className="buttonEdit" onClick={deactivateModal}>
-                                            <CloseIcon />
-                                    </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </main>
-                </AriaModal>
+                <PopupEdit 
+                    deactivateModal={deactivateModal} 
+                    clickedVine={clickedVine}
+                    token={token}
+                    getAllVines={getAllVines}/>
+            }
+            {
+                modalActiveAdd && 
+                <Add deactivateModal={deactivateModal}/> 
             }
             <div className="usernameContainer">
                 {
@@ -176,9 +143,7 @@ export default function Home(token) {
             <div className="mainContainer">
                 {mappedVines}
             </div>
-            <Circle />
+            <Circle activateModalAdd={activateModalAdd}/>
         </main>
     );
 }
-
-{/* <PopupEdit deactivateModal={deactivateModal}/> */ }
