@@ -23,7 +23,6 @@ export default function PopupEdit({
 
     useEffect(() => {
         getAllCountries();
-        // filterAndFind();
     }, [])
 
     function handleChange(e) {
@@ -45,35 +44,21 @@ export default function PopupEdit({
             })
     }
 
-
-
-    // var result = result1.filter(function (o1) {​​​​​
-    // return result2.some(function (o2) {​​​​​
-    // return o1.id === o2.id; // return the ones with equal id
-    // }​​​​​);
-    // }​​​​​);
-    // // if you want to be more clever...
-    // let result = result1.filter(o1 => result2.some(o2 => o1.id === o2.id));
-
-
-
-
     // const mappedCountries = countries.map(country => {
     //     return country.id
     // })
 
     // console.log(clickedVine);
 
-    const country2 = clickedVine.acf.country.filter(x => {
-        return countries.some(country => {
-            return x.ID === country.id
-        })
-    })
+    // const country2 = clickedVine.acf.country.filter(x => {
+    //     return countries.some(country => {
+    //         return x.ID === country.id
+    //     })
+    // })
 
 
     function handleSelect(e) {
         setSelected(e.target.value);
-        console.log(e.target.value);
     }
 
     async function handleUpdate() {
@@ -86,7 +71,6 @@ export default function PopupEdit({
                 country: [{ ID: selected }]
             }
         }
-        console.log(updatedVine);
         await putAxios(clickedVine.id, updatedVine);
         deactivateModal();
         getAllVines();
@@ -103,6 +87,7 @@ export default function PopupEdit({
                 console.error(err);
             })
     }
+    console.log(clickedVine);
 
     return (
         <AriaModal
@@ -133,9 +118,16 @@ export default function PopupEdit({
                                 value={input.grape}
                                 onChange={handleChange}
                             />
-
+                            <div className="title">Country</div>
+                            {
+                                !clickedVine.acf.country ? clickedVine.acf.country === [] :
+                                clickedVine.acf.country.map(x => {
+                                    return <div key={x.id}>{x.post_title}</div>
+                                })
+                            }
+                            <div className="title">{}</div>
                             <select onChange={handleSelect}>
-                            <option className="title">Country</option>
+                            <option className="title"></option>
                                 {
                                     countries.map(country => {
                                         return <option value={country.id} key={country.id}>{country.acf.country}</option>

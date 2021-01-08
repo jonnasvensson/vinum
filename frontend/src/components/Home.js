@@ -129,7 +129,11 @@ export default function Home(token) {
             }
             {
                 modalActiveAdd && 
-                <Add deactivateModal={deactivateModal}/> 
+                <Add 
+                    deactivateModal={deactivateModal}
+                    token={token}
+                    getAllVines={getAllVines}
+                    /> 
             }
             <div className="usernameContainer">
                 {

@@ -7,14 +7,20 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 
 
-export default function Add({ token, deactivateModal }) {
+export default function Add({ 
+    token, 
+    deactivateModal, 
+    getAllVines 
+    }) {
+
     const [input, setInputs] = useState({
         name: "",
         grape: "",
         description: "",
-        image: "",
+        // image: "",
         comments: ""
     });
+    const [image, setImage] = useState();
     const [selected, setSelected] = useState();
     const [countries, setCountries] = useState([]);
 
@@ -30,8 +36,10 @@ export default function Add({ token, deactivateModal }) {
         getAllCountries();
     }, [])
 
-    function handleAdd() {
-        postVine();
+    async function handleAdd() {
+        await postVine();
+        deactivateModal();
+        getAllVines()
         // postCountry();
     }
 
@@ -48,7 +56,45 @@ export default function Add({ token, deactivateModal }) {
     }
 
 
-    function postVine() {
+    // function handleUploadFile(e) {
+    //     setImage(e.target.files[0]);
+    // }
+
+    // function submitImage() {
+    //     uploadImage();
+    // }
+
+    // function uploadImage(e) { 
+    //     const formData = new FormData();
+    //     formData.append("file", image)
+    //     console.log(image);
+
+    //     const config = {     
+    //         headers: { 'content-type': 'multipart/form-data' },
+    //     }
+
+    //     axios
+    //         .post('http://localhost:9000/wp-json/wp/v2/media', image, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token.token}`,
+    //                 'content-type': 'multipart/form-data' 
+    //             }
+    //         })
+    //         .then(resp => {
+    //             console.log(resp.data);
+    //         })
+    //         .then(resp =>{
+    //             setImage(resp.data[0].id);
+    //             console.log(resp.data[0].id);
+    //         })
+    //         .catch(err => {
+    //             console.error(err);
+    //         })
+
+    // }
+
+
+    async function postVine() {
         let item = {
             title: input.name,
             content: "",
@@ -57,16 +103,19 @@ export default function Add({ token, deactivateModal }) {
                 vine: input.name,
                 grape: input.grape,
                 description: input.description,
-                image: input.image,
+                image: image,
                 country: [{ ID: selected }]
             }
         }
         console.log('ITEMM', item);
-        axios
+        await axios
             .post('http://localhost:9000/wp-json/wp/v2/vines', item, {
                 headers: {
                     Authorization: `Bearer ${token.token}`
                 }
+            })
+            .then((resp) => {
+                console.log(resp);
             })
     }
 
@@ -128,7 +177,7 @@ export default function Add({ token, deactivateModal }) {
 
                         </div>
                         <div className="imgContainer">
-                            <input type="file" accept=".jpg, .jpeg, .png" src={input.image} />
+                            {/* <input type="file" accept=".jpg, .jpeg, .png" name="image" onChange={handleUploadFile} /> */}
                             <img src="" alt=""></img>
                         </div>
                     </div>
@@ -149,6 +198,7 @@ export default function Add({ token, deactivateModal }) {
                                     <button className="buttonUpdate" onClick={handleAdd}>
                                         <AddIcon />
                                     </button>
+                                    {/* <button onClick={uploadImage}>Image</button> */}
                                 </div>
                             </div>
                         </div>
