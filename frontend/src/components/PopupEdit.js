@@ -121,13 +121,13 @@ export default function PopupEdit({
                             <div className="title">Country</div>
                             {
                                 !clickedVine.acf.country ? clickedVine.acf.country === [] :
-                                clickedVine.acf.country.map(x => {
-                                    return <div key={x.id}>{x.post_title}</div>
-                                })
+                                    clickedVine.acf.country.map(x => {
+                                        return <div className="titleCountry" key={x.id}>{x.post_title}</div>
+                                    })
                             }
-                            <div className="title">{}</div>
+                            <div className="title">{ }</div>
                             <select onChange={handleSelect}>
-                            <option className="title"></option>
+                                <option className="title"></option>
                                 {
                                     countries.map(country => {
                                         return <option value={country.id} key={country.id}>{country.acf.country}</option>
@@ -141,7 +141,7 @@ export default function PopupEdit({
                         </div>
                     </div>
                     <div className="bottomContainer">
-                        <div className="extrasGroup">
+                        <div className="extrasGroupAdd">
                             <div className="extrasContainer">
                                 <div className="title">Description</div>
                                 <textarea
@@ -152,11 +152,11 @@ export default function PopupEdit({
                                     onChange={handleChange}
                                 ></textarea>
                             </div>
-                            <div className="buttonContainer">
-                                <button className="buttonUpdate" onClick={handleUpdate}>
-                                    <UpdateIcon />
-                                </button>
-                            </div>
+                        </div>
+                        <div className="buttonContainer">
+                            <button className="buttonUpdate" onClick={handleUpdate}>
+                                <UpdateIcon />
+                            </button>
                         </div>
                     </div>
                 </div>

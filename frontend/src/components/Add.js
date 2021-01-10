@@ -7,11 +7,11 @@ import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
 
 
-export default function Add({ 
-    token, 
-    deactivateModal, 
-    getAllVines 
-    }) {
+export default function Add({
+    token,
+    deactivateModal,
+    getAllVines
+}) {
 
     const [input, setInputs] = useState({
         name: "",
@@ -187,20 +187,17 @@ export default function Add({
                                 <div className="title">Description</div>
                                 <textarea
                                     id="story"
-                                    rows="3"
+                                    rows="5"
                                     name="description"
                                     value={input.description}
                                     onChange={handleChange}
                                 ></textarea>
                             </div>
-                            <div className="__extrasContainer">
-                                <div className="buttonContainer">
-                                    <button className="buttonUpdate" onClick={handleAdd}>
-                                        <AddIcon />
-                                    </button>
-                                    {/* <button onClick={uploadImage}>Image</button> */}
-                                </div>
-                            </div>
+                        </div>
+                        <div className="buttonContainer">
+                            <button className="buttonUpdate" onClick={handleAdd}>
+                                <AddIcon />
+                            </button>
                         </div>
                     </div>
                 </div>

@@ -65,10 +65,10 @@ export default function Home(token) {
         getAllVines();
     }
 
-    function handleSignOut() {
-        token = false;
-        history.push('/')
-    }
+    // function handleSignOut() {
+    //     token = false;
+    //     history.push('/')
+    // }
 
     const mappedVines = vines.map(vine => {
         if (!vine) {
@@ -93,8 +93,15 @@ export default function Home(token) {
                             }
                         </div>
                     </div>
-                    <div className="imgContainer">
-                        <img src={vine.acf.image} alt=""></img>
+                    <div className="buttonGroup">
+                    <div className="buttonContainer">
+                            <button className="buttonEdit" onClick={() => handleDelete(vine)}>
+                                <DeleteIcon />
+                            </button>
+                            <button className="buttonEdit" onClick={() => activateModal(vine)}>
+                                <CreateIcon />
+                            </button>
+                        </div>
                     </div>
                 </div>
                 <div className="bottomContainer">
@@ -102,14 +109,6 @@ export default function Home(token) {
                         <div className="extrasContainer">
                             <div className="title">Description</div>
                             <div className="content">{vine.acf.description}</div>
-                        </div>
-                        <div className="buttonContainer">
-                            <button className="buttonEdit" onClick={() => handleDelete(vine)}>
-                                <DeleteIcon />
-                            </button>
-                            <button className="buttonEdit" onClick={() => activateModal(vine)}>
-                                <CreateIcon />
-                            </button>
                         </div>
                     </div>
                 </div>
@@ -135,14 +134,14 @@ export default function Home(token) {
                     getAllVines={getAllVines}
                     /> 
             }
-            <div className="usernameContainer">
+            {/* <div className="usernameContainer">
                 {
                     users.map(user => {
                         return <div className="title" key={user.id}>{user.name}</div>
                     })
                 }
                 <button onClick={handleSignOut}>Sign out</button>
-            </div>
+            </div> */}
             <Header />
             <div className="mainContainer">
                 {mappedVines}

@@ -26,13 +26,13 @@ function App() {
     getToken();
   })
 
-  function handleLogin(e) {
-    e.preventDefault();
-    if (token) {
-      <Redirect to='/' />
-    }
+  // function handleLogin(e) {
+  //   e.preventDefault();
+  //   if (token) {
+  //     <Redirect to='/' />
+  //   }
 
-  }
+  // }
 
   function getToken() {
     axios
@@ -45,19 +45,19 @@ function App() {
       })
   }
 
-  function handleChange(e) {
-    const value = e.target.value;
-    setLogin({
-      ...login,
-      [e.target.name]: value
-    });
-  }
+  // function handleChange(e) {
+  //   const value = e.target.value;
+  //   setLogin({
+  //     ...login,
+  //     [e.target.name]: value
+  //   });
+  // }
 
 
   return (
     <div className="App">
       <Router>
-      {   !token ?
+      {/* {   !token ?
         <div className="login">
           <div className="title">Sign in</div>
           <form className="form" onSubmit={handleLogin}>
@@ -89,7 +89,7 @@ function App() {
             <div>Register?</div>
           </div>
         </div>
-        : <Redirect to="/home" />}
+        : <Redirect to="/home" />} */}
         {/* <Route path="/login" component={() => (
           <Login
             token={token}
@@ -97,13 +97,13 @@ function App() {
           />
         )}
         /> */}
-        <Route exact path="/home" component={() => (
+        <Route exact path="/" component={() => (
           <Home
             token={token}
           />
         )}
         />
-        <Route path="/add" component={() => (
+        {/* <Route path="/add" component={() => (
           <Add
             token={token}
           />
@@ -114,7 +114,7 @@ function App() {
             token={token}
           />
         )}
-        />
+        /> */}
       </Router>
     </div>
   );
