@@ -102,9 +102,9 @@ export default function Add({
                                 value={input.grape}
                                 onChange={handleChange}
                             />
-
+                            <div className="title">Country</div>
                             <select onChange={handleSelect}>
-                                <option className="title">Country</option>
+                                <option className="title"></option>
                                 {
                                     countries.map(country => {
                                         return <option value={country.id} key={country.id}>{country.acf.country}</option>
