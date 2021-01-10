@@ -25,13 +25,6 @@ export default function PopupEdit({
         getAllCountries();
     }, [])
 
-    function handleChange(e) {
-        const value = e.target.value;
-        setInputs({
-            ...input,
-            [e.target.name]: value
-        });
-    }
 
     const getAllCountries = () => {
         axios
@@ -44,18 +37,13 @@ export default function PopupEdit({
             })
     }
 
-    // const mappedCountries = countries.map(country => {
-    //     return country.id
-    // })
-
-    // console.log(clickedVine);
-
-    // const country2 = clickedVine.acf.country.filter(x => {
-    //     return countries.some(country => {
-    //         return x.ID === country.id
-    //     })
-    // })
-
+    function handleChange(e) {
+        const value = e.target.value;
+        setInputs({
+            ...input,
+            [e.target.name]: value
+        });
+    }
 
     function handleSelect(e) {
         setSelected(e.target.value);
@@ -87,7 +75,6 @@ export default function PopupEdit({
                 console.error(err);
             })
     }
-    console.log(clickedVine);
 
     return (
         <AriaModal
@@ -122,7 +109,7 @@ export default function PopupEdit({
                             {
                                 !clickedVine.acf.country ? clickedVine.acf.country === [] :
                                     clickedVine.acf.country.map(x => {
-                                        return <div className="titleCountry" key={x.id}>{x.post_title}</div>
+                                        return <div className="titleCountry" key={x.ID}>{x.post_title}</div>
                                     })
                             }
                             <div className="title">{ }</div>

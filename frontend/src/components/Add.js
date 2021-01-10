@@ -1,7 +1,6 @@
 import '../App.scss';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
-import Header from './Header'
 import AriaModal from 'react-aria-modal';
 import CloseIcon from '@material-ui/icons/Close';
 import AddIcon from '@material-ui/icons/Add';
@@ -17,10 +16,8 @@ export default function Add({
         name: "",
         grape: "",
         description: "",
-        // image: "",
         comments: ""
     });
-    const [image, setImage] = useState();
     const [selected, setSelected] = useState();
     const [countries, setCountries] = useState([]);
 
@@ -40,7 +37,6 @@ export default function Add({
         await postVine();
         deactivateModal();
         getAllVines()
-        // postCountry();
     }
 
     function handleChange(e) {
@@ -55,45 +51,6 @@ export default function Add({
         setSelected(e.target.value);
     }
 
-
-    // function handleUploadFile(e) {
-    //     setImage(e.target.files[0]);
-    // }
-
-    // function submitImage() {
-    //     uploadImage();
-    // }
-
-    // function uploadImage(e) { 
-    //     const formData = new FormData();
-    //     formData.append("file", image)
-    //     console.log(image);
-
-    //     const config = {     
-    //         headers: { 'content-type': 'multipart/form-data' },
-    //     }
-
-    //     axios
-    //         .post('http://localhost:9000/wp-json/wp/v2/media', image, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token.token}`,
-    //                 'content-type': 'multipart/form-data' 
-    //             }
-    //         })
-    //         .then(resp => {
-    //             console.log(resp.data);
-    //         })
-    //         .then(resp =>{
-    //             setImage(resp.data[0].id);
-    //             console.log(resp.data[0].id);
-    //         })
-    //         .catch(err => {
-    //             console.error(err);
-    //         })
-
-    // }
-
-
     async function postVine() {
         let item = {
             title: input.name,
@@ -103,11 +60,9 @@ export default function Add({
                 vine: input.name,
                 grape: input.grape,
                 description: input.description,
-                image: image,
                 country: [{ ID: selected }]
             }
         }
-        console.log('ITEMM', item);
         await axios
             .post('http://localhost:9000/wp-json/wp/v2/vines', item, {
                 headers: {
@@ -118,24 +73,6 @@ export default function Add({
                 console.log(resp);
             })
     }
-
-    // function postCountry() {
-    //     let item = {
-    //         title: selected,
-    //         content: "",
-    //         status: "publish",
-    //         fields: {
-    //             country: selected
-    //         }
-    //     }
-    //     console.log(item);
-    //     axios
-    //         .post('http://localhost:9000/wp-json/wp/v2/countries', item, {
-    //             headers: {
-    //                 Authorization: `Bearer ${token.token}`
-    //             }
-    //         })
-    // }
 
     return (
         <AriaModal
@@ -175,10 +112,6 @@ export default function Add({
                                 }
                             </select>
 
-                        </div>
-                        <div className="imgContainer">
-                            {/* <input type="file" accept=".jpg, .jpeg, .png" name="image" onChange={handleUploadFile} /> */}
-                            <img src="" alt=""></img>
                         </div>
                     </div>
                     <div className="bottomContainer">
